@@ -354,6 +354,10 @@ public class SpelParserConfiguration {
 	/**
 	 * Return the maximum number of operations permitted during SpEL expression
 	 * evaluation.
+	 * <p>This limit applies to the number of operations performed &mdash; for
+	 * example, operator evaluations, property accesses, method invocations,
+	 * and each element processed by the selection and projection operators.
+	 * It does not take into account the cost of an individual operation.
 	 * @since 6.2.19
 	 */
 	public int getMaximumOperations() {
