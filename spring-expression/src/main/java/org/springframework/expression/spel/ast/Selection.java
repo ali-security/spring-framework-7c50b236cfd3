@@ -99,6 +99,7 @@ public class Selection extends SpelNodeImpl {
 		SpelNodeImpl selectionCriteria = this.children[0];
 
 		if (operand instanceof Map<?, ?> mapdata) {
+			state.trackOperation();
 			// TODO don't lose generic info for the new map
 			Map<Object, Object> result = new HashMap<>();
 			Object lastKey = null;
@@ -111,6 +112,7 @@ public class Selection extends SpelNodeImpl {
 					Object val = selectionCriteria.getValueInternal(state).getValue();
 					if (val instanceof Boolean b) {
 						if (b) {
+							state.trackOperation();
 							result.put(entry.getKey(), entry.getValue());
 							if (this.variant == FIRST) {
 								return new ValueRef.TypedValueHolderValueRef(new TypedValue(result), this);
@@ -147,6 +149,7 @@ public class Selection extends SpelNodeImpl {
 			Iterable<?> data = (operand instanceof Iterable<?> iterable ? iterable :
 					Arrays.asList(ObjectUtils.toObjectArray(operand)));
 
+			state.trackOperation();
 			List<Object> result = new ArrayList<>();
 			int index = 0;
 			for (Object element : data) {
@@ -159,6 +162,7 @@ public class Selection extends SpelNodeImpl {
 							if (this.variant == FIRST) {
 								return new ValueRef.TypedValueHolderValueRef(new TypedValue(element), this);
 							}
+							state.trackOperation();
 							result.add(element);
 						}
 					}

@@ -39,6 +39,7 @@ public class Assign extends SpelNodeImpl {
 
 	@Override
 	public TypedValue getValueInternal(ExpressionState state) throws EvaluationException {
+		state.trackOperation();
 		return this.children[0].setValueInternal(state, () -> this.children[1].getValueInternal(state));
 	}
 

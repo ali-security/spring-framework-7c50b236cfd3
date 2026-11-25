@@ -62,6 +62,7 @@ public class OpInc extends Operator {
 		TypedValue newValue = null;
 
 		if (value instanceof Number op1) {
+			state.trackOperation();
 			if (op1 instanceof BigDecimal bigDecimal) {
 				newValue = new TypedValue(bigDecimal.add(BigDecimal.ONE), typedValue.getTypeDescriptor());
 			}
@@ -106,8 +107,9 @@ public class OpInc extends Operator {
 			}
 		}
 
-		// set the name value
+		state.trackOperation();
 		try {
+			// set the name value
 			valueRef.setValue(newValue.getValue());
 		}
 		catch (SpelEvaluationException see) {
